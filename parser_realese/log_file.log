@@ -1,0 +1,34 @@
+
+2015/05/16 00:11:31 : PARSING GOOGLE SCHOLAR;
+
+2015/05/16 00:12:52 : Unable to connect to Google Scholar;
+
+2015/05/16 00:12:52 : WRITING SCHOLAR DATA TO DATABASE;
+
+2015/05/16 00:12:52 : Successfully connected driver;
+
+2015/05/16 00:12:52 : Successfully connected to jdbc:postgresql://127.0.0.1:5432/patentDB user name is postgres, password is RichardCypher;
+
+2015/05/16 00:12:52 : PARSING ELIBRARY;
+
+2015/05/16 00:12:52 : In ./elibrary found  1 .csv files;
+
+2015/05/16 00:12:52 : Found record 2015/05/16 00:12:52;КОНКРЕТИЗАЦИЯ ЦЕЛИ ОБУЧЕНИЯ ДЕЛОВОМУ АНГЛИЙСКОМУ ЯЗЫКУ В НЕЯЗЫКОВЫХ ВУЗАХ ЭКОНОМИЧЕСКОГО ПРОФИЛЯ;ТАРНОПОЛЬСКИЙ ОЛЕГ БОРИСОВИЧ;2012;Днепропетровский университет им. Альфреда Нобеля;none;русский;false;
+
+2015/05/16 00:12:52 : Found record 2015/05/16 00:12:52;ПОТЕНЦИАЛ КОНФЛИКТНОСТИ В ИЗБИРАТЕЛЬНЫЙ ПЕРИОД;БАЙХАНОВ ИСМАИЛ БАУТДИНОВИЧ;2012;Избирательная комиссия Чеченской Республики;none;русский;false;
+
+2015/05/16 00:12:52 : Found record 2015/05/16 00:12:52;ОБНАРУЖЕНИЕ ВНУТРЕННИХ СМЫСЛОВ НА УРОКАХ ЛИТЕРАТУРЫ;КОШЕЛЕВА Л. А.;2012;Алтайский краевой институт повышения квалификации работников образования, г. Барнаул;none;русский;false;
+
+2015/05/16 00:12:52 : ERROR! 1;
+
+2015/05/16 00:12:52 : WRITING ELIBRARY DATA TO DATABASE;
+
+2015/05/16 00:12:52 : Successfully connected driver;
+
+2015/05/16 00:12:52 : Successfully connected to jdbc:postgresql://127.0.0.1:5432/patentDB user name is postgres, password is RichardCypher;
+
+2015/05/16 00:12:52 : Successfully executed query INSERT INTO parsing_data(id, date_of_added, header, fio, year_of_edition, publishing, link, language, is_scholar) values(4311, '2015/05/16 00:12:52', 'КОНКРЕТИЗАЦИЯ ЦЕЛИ ОБУЧЕНИЯ ДЕЛОВОМУ АНГЛИЙСКОМУ ЯЗЫКУ В НЕЯЗЫКОВЫХ ВУЗАХ ЭКОНОМИЧЕСКОГО ПРОФИЛЯ', 'ТАРНОПОЛЬСКИЙ ОЛЕГ БОРИСОВИЧ', '2012', 'Днепропетровский университет им. Альфреда Нобеля', 'none', 'русский', false);
+
+2015/05/16 00:12:52 : Successfully executed query INSERT INTO parsing_data(id, date_of_added, header, fio, year_of_edition, publishing, link, language, is_scholar) values(4312, '2015/05/16 00:12:52', 'ПОТЕНЦИАЛ КОНФЛИКТНОСТИ В ИЗБИРАТЕЛЬНЫЙ ПЕРИОД', 'БАЙХАНОВ ИСМАИЛ БАУТДИНОВИЧ', '2012', 'Избирательная комиссия Чеченской Республики', 'none', 'русский', false);
+
+2015/05/16 00:12:52 : Successfully executed query INSERT INTO parsing_data(id, date_of_added, header, fio, year_of_edition, publishing, link, language, is_scholar) values(4313, '2015/05/16 00:12:52', 'ОБНАРУЖЕНИЕ ВНУТРЕННИХ СМЫСЛОВ НА УРОКАХ ЛИТЕРАТУРЫ', 'КОШЕЛЕВА Л. А.', '2012', 'Алтайский краевой институт повышения квалификации работников образования, г. Барнаул', 'none', 'русский', false);

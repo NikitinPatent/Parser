@@ -33,19 +33,50 @@ public class parser {
 		} catch (IOException ex) {
 		}
 		
-		//writeToLog("PARSING GOOGLE SCHOLAR");
-		Vector<String> scholar = parseGoogleScholarFromFile();
+		String input = "";
+		for (int i=0;i<args.length;i++){
+			input += args[i] + " ";
+		}
+		String search_string = "none";
+		String path_to_file = "none";
+		Boolean is_from_file = false;
+		Boolean is_found = false;
+		for (int i=0;i<args.length;i++){
+			if( input.contains("-f") && !is_found ){
+				is_from_file = true;
+				path_to_file = args[i+1];
+				is_found = true;
+			}
+			else if( input.contains("-s") && !is_found ){
+				search_string = args[i+1];
+				
+				search_string = input.substring(input.indexOf("-s")+3, input.length());
+				is_found = true;
+			}
+		}
 		
-		//writeToLog("WRITING SCHOLAR DATA TO DATABASE");
+		if( search_string == "none"  && is_from_file){
+			search_string = getSearchString(path_to_file);
+		}
+	
+		try{
+			Runtime.getRuntime().exec("/bin/bash -c python main.py");
+		}
+		catch (Exception ex){}
+		writeToLog("PARSING GOOGLE SCHOLAR");
+		//Vector<String> scholar = parseGoogleScholarFromFile();
+		Vector<String> scholar = parseGoogleScholar(search_string.replace(" ", "+"));
+		
+		writeToLog("WRITING SCHOLAR DATA TO DATABASE");
 		writeToDB(scholar);
 
-		/*writeToLog("PARSING ELIBRARY");
+		writeToLog("PARSING ELIBRARY");
 		Vector<String> elibrary = parseElibrary();
 		
 		writeToLog("WRITING ELIBRARY DATA TO DATABASE");
-		writeToDB(elibrary);*/
+		writeToDB(elibrary);
 		
-		try {writer.close();} catch (Exception ex) {/*ignore*/}
+		try {writer.close();} catch (Exception ex) {}
 	}
 	
 	public static void writeToDB( Vector<String> data ){
@@ -101,18 +132,13 @@ public class parser {
         }
 	}
 	
-	public static Vector<String> parseGoogleScholar(){
+	public static Vector<String> parseGoogleScholar(String search){
 		Vector<String> scholarData = new Vector<String>();
 		boolean isEnd = false;
-		
-		String search = getSearchString();
 			
 		try{
 			int start = 0;
 			while(!isEnd){
-				try{
-					Thread.sleep(10000);
-				}
 				catch(InterruptedException ie){writeToLog("ERROR! "+ie.getMessage());}
 				Document doc=Jsoup.connect("http://scholar.google.ru/scholar?start="+start+"&q="+search+"&num=20").userAgent("Mozilla/5.0 Chrome/26.0.1410.64 Safari/537.31").get();
 				
@@ -191,10 +217,10 @@ public class parser {
 		try{
 			int start = 0;
 			while(!isEnd){
-				File in = new File("/home/nikita/workspace/parser/docs2/input"+start+".html");
+				File in = new File("./docs2/input"+start+".html");
 				Document doc = Jsoup.parse(in, "UTF-8");
 				
-				writeToLog("Get documents /home/nikita/workspace/parser/docs2/input"+start+".html");
+				writeToLog("Get documents ./docs2/input"+start+".html");
 				
 				Elements div_gs_ri = doc.select("div.gs_ri"); //get div by class
 				Elements next = doc.select("div#gs_n"); //get div by id
@@ -259,7 +285,7 @@ public class parser {
 	public static Vector<String> parseElibrary(){
 		
 		Vector<String> elibraryData = new Vector<String>();
-		final File folder = new File("/home/nikita/workspace/parser/elibrary");
+		final File folder = new File("./elibrary");
 		Vector<String> tmp = listFilesFromFolder(folder);
 		Vector<String> paths = new Vector<String>();
 		String link = "none";
@@ -272,7 +298,7 @@ public class parser {
 			}
 		}
 		
-		writeToLog("In /home/nikita/workspace/parser/elibrary found  "+paths.size()+" .csv files");
+		writeToLog("In ./elibrary found  "+paths.size()+" .csv files");
 		
 		for(int i=0; i<paths.size(); i++){
 			Vector<String> result = getDataFromFile(paths.get(i));
@@ -331,11 +357,11 @@ public class parser {
 		return everything;
 	}
 	
-	public static String getSearchString(){
+	public static String getSearchString(String path){
 		String everything = "";
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+			BufferedReader br = new BufferedReader(new FileReader(path));
 			StringBuilder sb = new StringBuilder();
 			String line = br.readLine();
 			
